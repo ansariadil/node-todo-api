@@ -15,7 +15,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
     //     console.log(result)
     // })
 
-    //deleteDuplicateUsers
+    //deleteAllDuplicateUsers
     db.collection('Users').deleteMany({name: 'Naveen Rana'})
 
     // //deleteOne
@@ -31,6 +31,9 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
     // }).then((result) => {
     //     console.log(result)
     // })
+
+    db.collection('Users').
+
 
 
 
