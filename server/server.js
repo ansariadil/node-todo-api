@@ -3,7 +3,7 @@ let bodyParser = require('body-parser')
 
 let {mongoose} = require('./db/mongoose')
 let{Todo} = require('./models/todo')
-let{User} = require('./models/users')
+let{User} = require('./models/user')
 
 let app = express();
 
@@ -26,3 +26,5 @@ app.post('/todos', (req, res) => {
 app.listen(3000, () => {
     console.log('Sarted on port 3000')
 })
+
+module.exports = {app}
