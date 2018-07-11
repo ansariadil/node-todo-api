@@ -33,12 +33,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
        age: 23,
        dob: '08/11/1994',
        location: 'Delhi'
-    },{
-        name: 'Naveen Rana',
-        age: 23,
-        dob: '08/11/1994',
-        location: 'Kanpur'
-     }], (err, result) => {
+    }], (err, result) => {
         if(err){
             return console.log('Unable to insert', err)
         }
