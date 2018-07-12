@@ -11,6 +11,6 @@ Todo.remove({}).then((result) => {
 
 // Todo.findOneAndRemove
 
-Todo.findByIdAndRemove('5b4724957c3f0eb6112384d9').then((todo) => {
+Todo.findByIdAndRemove('123').then((todo) => {
     connsole.log(todo)
 })
