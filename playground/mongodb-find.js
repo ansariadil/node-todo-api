@@ -8,7 +8,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
 
     const db = client.db('TodoApp')
 
-    // db.collection('Users').find({
+    // db.collection('users').find({
     //     name: "Naveen Rana"
     // }).toArray().then((docs, err) => {
     //     console.log('Todos')
@@ -17,14 +17,14 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
     //     console.log('unable to fatch todos', err)
     // })
 
-    // db.collection('Users').find().count().then((count) => {
+    // db.collection('users').find().count().then((count) => {
     //     console.log(`Todos Counts ${count}`)
     //     // console.log(JSON.stringify(docs, undefined,2));
     // }, (err) => {
     //     console.log('unable to fatch todos', err)
     // })
     
-    db.collection('Users')
+    db.collection('users')
     .find({location: 'Delhi0'})
     .toArray()
     .then((docs) => {

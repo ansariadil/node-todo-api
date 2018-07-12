@@ -9,30 +9,30 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
     const db = client.db('TodoApp')
 
     // //deleteMany
-    // db.collection('Users').deleteMany({
+    // db.collection('users').deleteMany({
     //     name: 'Naveen Rana'
     // }).then((result) => {
     //     console.log(result)
     // })
 
     //deleteAllDuplicateUsers
-    db.collection('Users').deleteMany({name: 'Naveen Rana'})
+    db.collection('users').deleteMany({name: 'Naveen Rana'})
 
     // //deleteOne
-    // db.collection('Users').deleteOne({
+    // db.collection('users').deleteOne({
     //     name: 'Naveen Rana'
     // }).then((result) => {
     //     console.log(result)
     // })
 
     // //findOneand Delete
-    // db.collection('Users').findOneAndDelete({
+    // db.collection('users').findOneAndDelete({
     //     name: 'Naveen Rana'
     // }).then((result) => {
     //     console.log(result)
     // })
 
-    db.collection('Users').
+    db.collection('users').
 
 
 
