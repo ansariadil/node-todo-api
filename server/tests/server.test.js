@@ -11,7 +11,9 @@ const todos = [{
     text: 'first test to do'
     },{ 
         _id: new ObjectID(),
-        text: 'second test to do'
+        text: 'second test to do',
+        completed: true,
+        completedAt: 333
 }]
 
 beforeEach((done) => {
@@ -104,43 +106,83 @@ describe('GET /todos/:id', () => {
     })
 })
 
-describe('DELETE /todos/:id', () => {
-    it('should remove a todo', (done) => {
-        let hexId = todos[1]._id.toHexString()
+// describe('DELETE /todos/:id', () => {
+//     it('should remove a todo', (done) => {
+//         let hexId = todos[1]._id.toHexString()
+        
+//         request(app)
+//         .delete(`/todos/${hexId}`)
+//         .expect(200)
+//         .expect((res) => {
+//             expect(res.body.todo._id).toBe(hexId)
+//         })
+//         .end((err, res) => {
+//             if(err){
+//                 return done(err)
+//             }
+//             //query database us toNotExist
+//             //expect(null).toNotExist()
+//             Todo.findById(hexId).then((todo) => {
+//                 expect(todo).toNotExist()
+//                 done()
+//             }).catch((e) => done(e))
+//         })
+//     })
+
+//     it('Should return 404 if todo not found', (done) => {
+//         let hexID = new ObjectID().toHexString()
+
+//         request(app)
+//         .delete(`/todos/${hexID}`)
+//         .expect(404)
+//         .end(done)
+//     })
+
+//     it ('shoud return 400 for no object uds', (done) => {
+
+//         request(app)
+//         .delete(`/todos/123abc`)
+//         .expect(404)
+//         .end(done)
+//     })
+// })
+
+describe('PATCH /todos/:id', () => {
+    it('should update the todo', (done) => {
+        const id = todos[1]._id.toHexString()
+        const updatedTodo = {
+          text: 'something from test case',
+          completed: true
+        }
         
         request(app)
-        .delete(`/todos/${hexId}`)
-        .expect(200)
-        .expect((res) => {
-            expect(res.body.todo._id).toBe(hexId)
+          .patch(`/todos/${id}`)
+          .send(updatedTodo)
+          .expect(200)
+          .expect(res => {
+            expect(res.body.todo.text).toEqual(updatedTodo.text)
+            expect(res.body.todo.completed).toBeTruthy()
+            expect(typeof res.body.todo.completedAt).toBe('number')
         })
-        .end((err, res) => {
-            if(err){
-                return done(err)
-            }
-            //query database us toNotExist
-            //expect(null).toNotExist()
-            Todo.findById(hexId).then((todo) => {
-                expect(todo).toNotExist()
-                done()
-            }).catch((e) => done(e))
-        })
-    })
-
-    it('Should return 404 if todo not found', (done) => {
-        let hexID = new ObjectID().toHexString()
-
-        request(app)
-        .delete(`/todos/${hexID}`)
-        .expect(404)
         .end(done)
-    })
+       })
 
-    it ('shoud return 400 for no object uds', (done) => {
-
+    it('should be update the completed at when tudo is not completed', (done) => {
+        const id = todos[1]._id.toHexString()
+        const updatedTodo = {
+          text: 'something from test case!!',
+          completed: false
+        }
+        
         request(app)
-        .delete(`/todos/123abc`)
-        .expect(404)
+          .patch(`/todos/${id}`)
+          .send(updatedTodo)
+          .expect(200)
+          .expect(res => {
+            expect(res.body.todo.text).toBe(updatedTodo.text)
+            expect(res.body.todo.completed).toBeFalsy()
+            expect(res.body.todo.completedAt).toBeGreaterThan(0)
+        })
         .end(done)
     })
 })
