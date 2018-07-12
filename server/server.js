@@ -30,31 +30,36 @@ app.get('/todos', (req, res) => {
     })
 })
 
-//GET request /todos/id fatch this walue
-app.get('./todos/:id', (req, res) => {
-    // res.send(req.params)
-    let id = req.params.id
+app.get('/todos/:id', (req, res) => {
+    const id = req.params.id;
+    Todo.findById(id)
+        .then(todo => {
+            if (!todo) {
+                return res.status(404).send();
+            }
+            res.send({ todo });
+        })
+        .catch(error => res.status(400).send());
+}); 
+// OR |||||
+// app.get('/todos/:id', (req, res) => {
+//     // res.send(req.params)
+//     let id = req.params.id;
 
-    if(!ObjectID.isValid(id)) {
-        return res.status(404).send()
-    }
+//     if(!ObjectID.isValid(id)){
+//         return res.status(404).send()
+//     }
 
-    // Todo.findById(id).then((todo) => {
-    //     if(!todo) {
-    //         return res.status(404).send()
-    //     }
-    //     res.send({todo})
-    // }).catch((e) => {
-    //     res.status(400).send();
-    // })
-    
-     //find By ID
-        //success
-            //if todo send it back
-            //if not sens 404 with empty body
-        //error
-            // 400= and send empty box beck
-})
+//     Todo.findById(id).then((todo) => {
+//         if(!todo){
+//             return res.status(404).send()
+//         }
+        
+//         res.send({todo})
+//     }).catch((e) => {
+//         res.status(400).send()
+//     })
+// })
 
 app.listen(3000, () => {
     console.log('Sarted on port 3000')
